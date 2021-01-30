@@ -3,6 +3,18 @@ export default class IMode {
     constructor(cardsGenerator, deckGenerator) {
         this.cardsGenerator = cardsGenerator
         this.deckGenerator = deckGenerator
+        this.deck = []
+        this.observers = []
+    }
+
+    addObserver(callback) {
+        this.observers.push(callback)
+    }
+
+    notifyAll(newValue) {
+        for (const observer of this.observers) {
+            observer(newValue)
+        }
     }
 
     newGame() {
@@ -26,7 +38,15 @@ export default class IMode {
         }
     }
 
-    rules() {
+    get rules() {
+        throw Error("Abstract")
+    }
+
+    get name() {
+        throw Error("Abstract")
+    }
+
+    header() {
         throw Error("Abstract")
     }
 }

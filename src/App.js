@@ -1,10 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 
 import TimeMode from './BL/Modes/SinglePlayer/TimeMode'
 import SimpleCardGenerator from './BL/Generators/CardGenerators/SimpleCardGenerator'
 import SimpleDeckGenerator from './BL/Generators/DeckGenerators/SimpleDeckGenerator'
 import OddOptionsBrain from './BL/Brains/OddOptionsBrain'
+import PlayingCard from './Components/PlayingCard';
+import Board from './Components/Board';
+import GamePage from './Components/GamePage';
 
 function App() {
 
@@ -25,20 +27,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-        </p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-        </a>
-			</header>
+			<GamePage mode={tm}/>
 		</div>
 	);
 }
