@@ -3,7 +3,7 @@ import Deck from '../../Deck'
 
 // Creates a deck with some minimum amount of sets in it.
 // It is kind of stupid, so it better use it for
-// small amount of minimum sets.
+// small amount of minimum sets or it might get slow.
 export default class SimpleDeckGenerator extends IDeckGenerator {
 
     constructor(size, minSets, brain) {

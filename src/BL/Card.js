@@ -18,4 +18,8 @@ export default class Card {
 
         return true
     }
+
+    toString() {
+        return this.attributes.map(attr => `${attr}`).join("-")
+    }
 }

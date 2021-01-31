@@ -1,3 +1,7 @@
 .rotate {
     transform: rotate(90deg); 
 }
+
+.card-image {
+    width: 80%;
+}

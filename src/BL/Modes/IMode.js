@@ -1,41 +1,45 @@
 export default class IMode {
 
-    constructor(cardsGenerator, deckGenerator) {
-        this.cardsGenerator = cardsGenerator
+    constructor(deckGenerator) {
         this.deckGenerator = deckGenerator
-        this.deck = []
+        this.gameEnded = true
         this.observers = []
     }
 
-    addObserver(callback) {
-        this.observers.push(callback)
+    observe(callback) {
+        if (!this.observers.includes(callback)) {
+            this.observers.push(callback)
+        }
     }
 
-    notifyAll(newValue) {
-        for (const observer of this.observers) {
-            observer(newValue)
+    stateHasChanged() {
+        for (const callback of this.observers) {
+            callback()
         }
     }
 
     newGame() {
-        throw Error("Abstract")
+        this.gameEnded = false
+        this.stateHasChanged()
+    }
+
+    gameHasEnded() {
+        this.gameEnded = true
+        this.stateHasChanged()
     }
 
     setFound(indexes, cards) {
-        indexes.sort((a, b) => b - a)
-        indexes.forEach(i => this.deck.splice(i, 1))
-
-        let newCards = this.cardsGenerator.randomsNotIn(this.deck)
-        for (const [i, index] of indexes) {
-            this.deck.splice(index, 0, newCards[i])
-        }
+        throw Error("Abstract")
     }
 
     checkSet(indexes) {
         let cards = indexes.map(i => this.deck.cards[i])
         if (this.deck.brain.isSet(cards)) {
             this.setFound(indexes, cards)
+            return true
         }
+
+        return false
     }
 
     get rules() {
@@ -46,7 +50,25 @@ export default class IMode {
         throw Error("Abstract")
     }
 
-    header() {
+    get brain() {
+        return this.deck.brain
+    }
+
+    bindedHeaderComponent() {
+        return this._headerComponent().bind(this)
+    }
+
+    // Returns the header component.
+    _headerComponent() {
+        throw Error("Abstract")
+    }
+
+    bindedEndgameComponent() {
+        return this._endgameComponent().bind(this)
+    }
+
+    // Returns the endgame component.
+    _endgameComponent() {
         throw Error("Abstract")
     }
 }

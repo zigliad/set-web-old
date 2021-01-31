@@ -1,4 +1,4 @@
-import { getKs } from './Utils'
+import { k_combinations } from './Utils'
 
 export default class Deck {
 
@@ -9,9 +9,11 @@ export default class Deck {
     }
 
     countSets() {
-        return getKs(this.cards, this.brain.options)
-            .filter(maybeSet => !maybeSet.every(card => card.equals(maybeSet[0])))
+        return this.getSets().length
+    }
+
+    getSets() {
+        return k_combinations(this.cards, this.brain.options)
             .filter(maybeSet => this.brain.isSet(maybeSet))
-            .length
     }
 }

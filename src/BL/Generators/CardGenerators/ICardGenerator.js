@@ -1,5 +1,6 @@
 import Card from '../../Card'
 
+// Defines how to generate some cards.
 export default class ICardGenerator {
 
     constructor(attributes, options) {
@@ -7,29 +8,35 @@ export default class ICardGenerator {
         this.options = options
     }
 
+    // Simple random card.
     random() {
         let card = []
-        for (const _ of this.attributes) {
-            card.append(Math.floor(Math.random() * this.options))
+        for (let i = 0; i < this.attributes; i++) {
+            card.push(Math.floor(Math.random() * this.options))
         }
 
         return new Card(card)
     }
 
-    randomNotIn(...cards) {
+    // Random card which is not in the "cards" array.
+    randomExclude(cards) {
         let result;
-        let found = true
+        let found;
         do {
+            found = true
             result = this.random()
-            cards.forEach(card => {
+            for (const card of cards) {
                 found = found && !card.equals(result)
-            });
+            }
         } while(!found)
 
         return result
     }
 
-    randomsNotIn(amount, ...cards) {
+    // Generates "amount" number of cards.
+    // Accept "cards" parameter to do some calculations
+    // about other cards if needed (e.g. exclude).
+    generate(amount, cards) {
         throw Error("Abstract")
     }
 }

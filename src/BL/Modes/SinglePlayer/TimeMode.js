@@ -2,9 +2,11 @@ import IMode from '../IMode'
 
 export default class TimeMode extends IMode {
 
-    constructor(cardsGenerator, deckGenerator, seconds) {
-        super(cardsGenerator, deckGenerator)
+    constructor(deckGenerator, replacer, seconds) {
+        super(deckGenerator)
+        this.replacer = replacer
         this.seconds = seconds
+        this.interval = null
     }
 
     newGame() {
@@ -12,15 +14,28 @@ export default class TimeMode extends IMode {
         this.timeLeft = this.seconds
         this.deck = this.deckGenerator.generate()
 
-        setInterval(() => {
+        if (this.interval !== null) {
+            clearInterval(this.interval)
+        }
+
+        this.interval = setInterval(() => {
             this.timeLeft -= 1
-            console.log(this.timeLeft)
-            this.notifyAll(this)
+            if (this.timeLeft === 0) {
+                clearInterval(this.interval)
+                this.gameHasEnded()
+            } else {
+                this.stateHasChanged()
+            }
         }, 1_000);
+
+        super.newGame()
     }
 
     setFound(indexes, cards) {
         this.score += 1
+        this.stateHasChanged()
+
+        this.replacer.replace(indexes, this.deck)
     }
 
     get rules() {
@@ -28,22 +43,33 @@ export default class TimeMode extends IMode {
     }
 
     get name() {
-        return "Time Mode!"
+        return "Time Mode"
     }
 
-    header() {
-        function Comp({ mode, flag }) {
+    _headerComponent() {
+        return () => {
             return (
-                <div>
+                <div style={{padding: 8}}>
                     <h2>
-                        TIME MODE!
-                        </h2>
-                    <p>Score: {mode.score}</p>
-                    <p>Time: {mode.timeLeft}</p>
+                        Time Mode
+                    </h2>
+                    <p>Score: {this.score}</p>
+                    <p>Time: {this.timeLeft}</p>
                 </div>
             );
         }
+    }
 
-        return Comp
+    _endgameComponent() {
+        return () => {
+            return (
+                <div style={{padding: 8}}>
+                    <h1>
+                        Time's Up!
+                    </h1>
+                    <p>Your Score: {this.score}</p>
+                </div>
+            );
+        }
     }
 }
