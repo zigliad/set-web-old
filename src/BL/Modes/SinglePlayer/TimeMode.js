@@ -12,7 +12,6 @@ export default class TimeMode extends IMode {
     newGame() {
         this.score = 0
         this.timeLeft = this.seconds
-        this.deck = this.deckGenerator.generate()
 
         if (this.interval !== null) {
             clearInterval(this.interval)

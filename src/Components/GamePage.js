@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Board from './Board';
 import Deck from '../BL/Deck'
 import useStyles from './styles';
+import { useLocation, Link } from "react-router-dom";
 
 // Create your forceUpdate hook
 function useForceUpdate() {
@@ -13,7 +14,19 @@ function useForceUpdate() {
     return () => setValue(value => value + 1); // update the state to force render
 }
 
-export default function GamePage({ mode }) {
+function NoMode() {
+    return (
+        <div>
+            <h1>No mode!</h1>
+            <Link to="/" />
+        </div>
+    );
+}
+
+export default function GamePage() {
+
+    const location = useLocation()
+    const mode = location.state.mode
 
     const forceUpdate = useForceUpdate()
     const classes = useStyles()
@@ -55,27 +68,28 @@ export default function GamePage({ mode }) {
                 }
                 {
                     !mode.gameEnded &&
-                    <Grid item xs={3}>
+                    <Grid item xs={12} lg={3}>
                         <Paper
                             elevation={6}
                             className={`${classes.borderRadius} ${classes.unpicked}`}>
                             <Header />
                             {/* <Grid container spacing={2}>
-                                {sets}
-                            </Grid> */}
+                                    {sets}
+                                </Grid> */}
                         </Paper>
                     </Grid>
                 }
                 {
                     !mode.gameEnded &&
-                    <Grid item xs={9} className={`${classes.paddingSmall}`}>
+                    <Grid item xs={12} lg={9} className={`${classes.paddingSmall}`}>
                         <Board deck={mode.deck} checkSet={checkSet} />
                     </Grid>
                 }
                 {
-                    sets
-                }
+                        sets
+                    }
             </Grid>
         </div>
     );
+
 }

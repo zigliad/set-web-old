@@ -20,6 +20,7 @@ export default class IMode {
 
     newGame() {
         this.gameEnded = false
+        this.deck = this.deckGenerator.generate()
         this.stateHasChanged()
     }
 

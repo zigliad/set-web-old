@@ -6,8 +6,6 @@ const useStyles = makeStyles({
     },
 
     picked: {
-        borderWidth: 4,
-        borderColor: "#000000",
         backgroundColor: "#f0f0f0",
         transform: 0.8
     },
