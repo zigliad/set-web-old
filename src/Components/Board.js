@@ -27,7 +27,7 @@ export default function Board({ deck, checkSet }) {
     }
 
     const cards = deck.cards.map((card, index) =>
-        <Grid item xs={6} sm={4} lg={3} key={card.toString()}>
+        <Grid item xs={6} sm={4} md={3} key={card.toString()}>
             <PlayingCard card={card} onClick={() => cardClicked(card, index)} picked={clicked.includes(index)} />
         </Grid>
     );

@@ -1,4 +1,12 @@
-import IMode from '../IMode'
+import IMode from '../IMode';
+import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+const useStyles = makeStyles({
+    root: {
+        width: '100%',
+    },
+});
 
 export default class StaticMode extends IMode {
 
@@ -15,8 +23,6 @@ export default class StaticMode extends IMode {
         super.newGame()
     }
 
-    
-
     setFound(indexes, cards) {
         if (!this.brain.setInSets(cards, this.setsFound)) {
             this.score += 1
@@ -24,7 +30,7 @@ export default class StaticMode extends IMode {
             if (this.score === this.goal) {
                 this.gameHasEnded()
             }
-    
+
             this.stateHasChanged()
         }
     }
@@ -39,12 +45,16 @@ export default class StaticMode extends IMode {
 
     _headerComponent() {
         return () => {
+            const classes = useStyles();
             return (
-                <div style={{padding: 8}}>
+                <div style={{ padding: 8 }}>
                     <h2>
                         Static Mode
                     </h2>
                     <p>{this.score} sets of {this.goal}</p>
+                    <div className={classes.root}>
+                        <LinearProgress variant="determinate" value={this.score * 100 / this.goal} />
+                    </div>
                 </div>
             );
         }
@@ -52,8 +62,10 @@ export default class StaticMode extends IMode {
 
     _endgameComponent() {
         return () => {
+            const classes = useStyles();
+
             return (
-                <div style={{padding: 8}}>
+                <div style={{ padding: 8 }}>
                     <h1>
                         You Won!
                     </h1>

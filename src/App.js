@@ -6,11 +6,22 @@ import MainPage from './Components/MainPage';
 import {
 	BrowserRouter as Router,
 	Switch,
-	Route
+	Route,
+	useHistory, Link
 } from "react-router-dom";
 
-function App() {
+function NoMode() {
+	return (
+		<div>
+			<h1>No mode!</h1>
+			<Link to="/">
+				Back
+			</Link>
+		</div>
+	);
+}
 
+function App() {
 	return (
 		<div className="App">
 			<Router>

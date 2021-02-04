@@ -7,7 +7,6 @@ export default function MainPage() {
 
     return (
         <div>
-            <h1>SET</h1>
             <Modes />
         </div>
     );

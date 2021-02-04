@@ -85,9 +85,9 @@ export default function GamePage() {
                         <Board deck={mode.deck} checkSet={checkSet} />
                     </Grid>
                 }
-                {
-                        sets
-                    }
+                {/* {
+                    sets
+                } */}
             </Grid>
         </div>
     );
