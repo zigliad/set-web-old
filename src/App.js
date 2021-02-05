@@ -1,5 +1,3 @@
-import './App.css';
-
 import GamePage from './Components/GamePage';
 import MainPage from './Components/MainPage';
 
@@ -23,15 +21,17 @@ function NoMode() {
 
 function App() {
 	return (
-		<div className="App">
-			<Router>
-				<Switch>
-					<Route exact path="/game" render={(props) => <GamePage {...props} />} />
-					<Route path="/">
-						<MainPage />
-					</Route>
-				</Switch>
-			</Router>
+		<div className="dark">
+			<div className="h-screen bg-gray-100 dark:bg-gray-800">
+				<Router>
+					<Switch>
+						<Route exact path="/game" render={(props) => <GamePage {...props} />} />
+						<Route path="/">
+							<MainPage />
+						</Route>
+					</Switch>
+				</Router>
+			</div>
 		</div>
 	);
 }

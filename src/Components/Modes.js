@@ -1,5 +1,3 @@
-import useStyles from './styles';
-import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 
 import TimeMode from '../BL/Modes/SinglePlayer/TimeMode'
@@ -11,8 +9,6 @@ import SimpleReplacer from '../BL/Generators/Replacer/SimpleReplacer';
 import '../styles/main.css';
 
 export default function Modes({ }) {
-
-    const classes = useStyles();
 
     const ATTRIBUTES = 4
     const OPTIONS = 3
@@ -33,17 +29,22 @@ export default function Modes({ }) {
 
     return (
         <div className="p-16">
-            <button className="bg-indigo-500 ring-4 ring-indigo-300 py-4 px-6 text-white text-lg font-bold rounded-xl">
-                Time Mode
-            </button>
-            {/* <Button variant="outlined" color="primary">
+            <button className="bg-indigo-500 ring-4 ring-indigo-300 py-4 px-6 text-white text-lg font-bold font-serif rounded-xl">
                 <Link to={{
                     pathname: "/game",
                     state: { mode: tm }
                 }}>
                     Time Mode
                 </Link>
-            </Button> */}
+            </button>
+            <button className="bg-yellow-500 ring-4 ring-yellow-300 ring-opacity-50 py-4 px-6 text-white text-lg font-bold font-serif rounded-xl">
+                <Link to={{
+                    pathname: "/game",
+                    state: { mode: tm }
+                }}>
+                    Time Mode
+                </Link>
+            </button>
         </div>
     );
 }

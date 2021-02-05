@@ -2,10 +2,8 @@ import { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import PlayingCard from './PlayingCard';
-import { makeStyles } from '@material-ui/core/styles';
 import Board from './Board';
 import Deck from '../BL/Deck'
-import useStyles from './styles';
 import { useLocation, Link } from "react-router-dom";
 
 // Create your forceUpdate hook
@@ -29,7 +27,6 @@ export default function GamePage() {
     const mode = location.state.mode
 
     const forceUpdate = useForceUpdate()
-    const classes = useStyles()
 
     const Header = mode.bindedHeaderComponent()
     const Endgame = mode.bindedEndgameComponent()
@@ -69,19 +66,17 @@ export default function GamePage() {
                 {
                     !mode.gameEnded &&
                     <Grid item xs={12} lg={3}>
-                        <Paper
-                            elevation={6}
-                            className={`${classes.borderRadius} ${classes.unpicked}`}>
+                        <div className="bg-white dark:bg-gray-600 shadow-2xl rounded-2xl flex justify-center items-center p-4">
                             <Header />
                             {/* <Grid container spacing={2}>
                                     {sets}
                                 </Grid> */}
-                        </Paper>
+                        </div>
                     </Grid>
                 }
                 {
                     !mode.gameEnded &&
-                    <Grid item xs={12} lg={9} className={`${classes.paddingSmall}`}>
+                    <Grid item xs={12} lg={9}>
                         <Board deck={mode.deck} checkSet={checkSet} />
                     </Grid>
                 }

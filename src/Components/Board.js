@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import PlayingCard from './PlayingCard';
-import { makeStyles } from '@material-ui/core/styles';
 
 export default function Board({ deck, checkSet }) {
 
@@ -33,7 +31,7 @@ export default function Board({ deck, checkSet }) {
     );
 
     return (
-        <Grid container spacing={4} alignItems="center" justify="space-evenly">
+        <Grid container spacing={4}>
             {cards}
         </Grid>
     );
